@@ -1,0 +1,44 @@
+<button (click)="showAddUserForm()">მომხმარებლის დამატება <fa-icon [icon]="faUserPlus"></fa-icon></button>
+<div *ngIf="!showUserForm">
+  <ul class="users">
+    <li *ngFor="let user of users" (click)="selectUser(user.id)" [class.selected]="user.id == selectedUser?.id">
+      <div>
+        <span class="badge">{{user.id}}</span>
+        <span class="badge">{{user.studentCode}} </span>
+        <span class="badge">{{user.firstName}}</span>
+        <span class="badge">{{user.lastName}}</span>
+        <span class="badge">{{user.subjects}}</span>
+        <span class="badge">{{user.passDate}}</span>
+      </div>
+      <fa-icon (click)="deleteUser(user.id)" [icon]="faArchive"></fa-icon>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="selectedUser">
+  <app-user-detail [user]="selectedUser" (saveEvent)="save($event)"></app-user-detail>
+</div>
+<ul *ngIf="showUserForm" style="margin-right: 10px;">
+  <li style="margin-top: 20px">
+    <label for="user-name">სტუდენტური ნომერი: </label>
+    <input id="user-info" [(ngModel)]="userToAdd.studentCode" placeholder="სტუდენტური ნომერი">
+  </li>
+  <li class="name-box">
+    <label for="user-firstName">სახელი: </label>
+    <input id="user-info" [(ngModel)]="userToAdd.firstName" placeholder="სახელი">
+  </li>
+  <li class="name-box">
+    <label for="user-name">გვარი: </label>
+    <input id="user-info" [(ngModel)]="userToAdd.lastName" placeholder="გვარი">
+  </li>
+  <li class="name-box">
+    <label for="user-name">საგნები: </label>
+    <input id="user-info" [(ngModel)]="userToAdd.subjects" placeholder="საგნები">
+  </li>
+  <li class="name-box">
+    <label for="user-name">თარიღი: </label>
+    <input id="user-info" [(ngModel)]="userToAdd.passDate" placeholder="თარიღი">
+  </li>
+  <button (click)="addUser()">შენახვა</button>
+</ul>
+
